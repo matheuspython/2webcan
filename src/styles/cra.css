@@ -1,0 +1,149 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+main {
+    display: flex;
+}
+
+.left-side {
+    width: 300px;
+    padding: 2%;
+    background: #40de63;
+    color: #fff;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    position: fixed;
+}
+
+.left-side h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.left-side p {
+    font-size: 16px;
+}
+
+.right-side {
+    margin-left: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right-side h2 {
+    color: #40de63;
+    margin: 45px;
+}
+
+.iniciar-chamada-button {
+    background: #40de63;
+    cursor: pointer;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    width: 80%;
+}
+
+.encerrar-chamada-button {
+    display: none;
+    background: #ff4d4d;
+    cursor: pointer;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    width: 80%;
+    margin-top: 20px;
+}
+.video-area{
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+video{
+    border-radius: 12px;
+    width:80%;
+    background-color: black;
+    cursor: pointer;
+}
+.none {
+    display: none;
+}
+.large {
+     width: 100%;
+     margin-left:0 ;
+}
+button {
+    background: #40de63;
+    cursor: pointer;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    width: 80%;
+    margin: 10px 0;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background: #36c356; /* Cor ligeiramente mais escura ao passar o mouse */
+}
+
+/* Estilização dos botões quando desabilitados */
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+/* CSS para estilizar os botões */
+
+.iniciar-chamada-button, .encerrar-chamada-button, #marcar-consulta {
+    background: #40de63;
+    cursor: pointer;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    width: 80%;
+    margin: 10px 0;
+    transition: background-color 0.3s;
+}
+
+.iniciar-chamada-button:hover, .encerrar-chamada-button:hover, #marcar-consulta:hover {
+    background: #36c356; /* Cor ligeiramente mais escura ao passar o mouse */
+}
+
+/* Estilização dos botões quando desabilitados */
+.iniciar-chamada-button:disabled, .encerrar-chamada-button:disabled, #marcar-consulta:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 1100px) {
+    .left-side{
+        display: none;
+    }
+    .right-side{
+        width: 100%;
+        margin-left:0 ;
+    }
+}

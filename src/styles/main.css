@@ -1,0 +1,126 @@
+main {
+    display: flex;
+}
+main .left-side {
+    width: 300px;
+    padding: 2%;
+    background: #40de63;
+    color: #fff f;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    position: fixed;
+}
+main .left-side h1 {
+    font-size: 29px;
+    font-weight: 600;
+}
+main .left-side p {
+    font-weight: 400;
+}
+main .right-side {
+    margin-left: 300px;
+    width: 100%;
+    display: flex;
+   /* justify-content: space-evenly;
+    */
+    align-items: center;
+    flex-direction: column;
+}
+main .right-side h2 {
+    color: #40de63;
+    margin: 45px;
+}
+main .right-side form {
+    position: relative;
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+
+}
+main .right-side form .criar-conta {
+    width: 100%;
+    text-decoration: none;
+    /* text-align: right; */
+    position: absolute;
+    bottom: -50px;
+    left: 100px;
+}
+main .right-side form input, main .right-side form button {
+    background-color: #f5f5f5;
+    border: 0;
+    padding: 20px;
+    border-radius: 12px;
+    width: 80%;
+}
+main .right-side form button {
+    background: #40de63;
+    cursor: pointer;
+    color: #fff;
+    font-family: 600;
+    font-size: 18px;
+}
+main .services{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+main .services h2{
+    text-align: center;
+}
+.services-list{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.service {
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra sutil */
+    max-width: 300px;
+    text-align: center;
+    padding: 20px;
+    margin: 10px; /* Espaçamento entre as caixas de serviço */
+    transition: transform 0.2s; /* Adiciona uma transição suave de escala */
+}
+
+.service img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+/* Estilo ao passar o mouse sobre as caixas de serviço */
+.service:hover {
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho ao passar o mouse */
+}
+
+
+@media only  screen and (max-width: 1100px) {
+    main .left-side{
+        display: none;
+    }
+    main .right-side{
+        margin-left: 0px;
+    }
+    main .right-side form{
+        width: 100%;
+    }
+main .right-side form .criar-conta {
+    /* margin-right: 200px; */
+    width: auto;
+    bottom: -50px;
+    left: 100px;
+}
+  }
