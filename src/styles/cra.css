@@ -71,16 +71,21 @@ main {
     width: 80%;
     margin-top: 20px;
 }
-.video-area{
+.video-area {
     display: flex;
+    flex-wrap: wrap; /* Faz com que os elementos quebrem para a próxima linha quando não couberem na largura */
     gap: 15px;
+    justify-content: center;
     margin-bottom: 20px;
 }
-video{
+
+.video-element {
     border-radius: 12px;
-    width:80%;
+    width: 80%;
+    max-width: 300px; /* Impede que o vídeo ultrapasse o tamanho da tela */
     background-color: black;
     cursor: pointer;
+
 }
 .none {
     display: none;
@@ -112,7 +117,11 @@ button:disabled {
     background: #ccc;
     cursor: not-allowed;
 }
+.hidden {
+    display: none;
+}
 /* CSS para estilizar os botões */
+
 
 .iniciar-chamada-button, .encerrar-chamada-button, #marcar-consulta {
     background: #40de63;
