@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Selecionar elementos HTML
     const videoElement = document.querySelectorAll(".video-element");
     const startRecordingButton = document.getElementById("start-recording");
-    const placeholder = document.getElementById("placeholder");
     const consultaForm = document.getElementById("consulta-form");
     const finalizarConsultaButton = document.getElementById("finalizar-consulta");
     const consultaDados = document.getElementById("consulta-dados");
@@ -10,72 +9,87 @@ document.addEventListener("DOMContentLoaded", function () {
     const hospitalDados = document.getElementById("hospital-dados");
     const situacaoDados = document.getElementById("situacao-dados");
     const dataDados = document.getElementById("data-dados");
+    const horarioDados = document.getElementById("horario-dados");
 
-    // Variáveis para controle da gravação
-    let mediaStream;
-    let mediaRecorder;
-    let recording = false; // Variável para controlar o estado da gravação
+    // Verificar se todos os elementos existem
+    if (videoElement && startRecordingButton &&
+        consultaForm && finalizarConsultaButton &&
+        consultaDados && cpfDados && hospitalDados && situacaoDados &&
+        dataDados && horarioDados) {
 
-    // Função para iniciar a gravação da câmera
-    startRecordingButton.addEventListener("click", async () => {
-        if (!recording) {
-            try {
-                mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        // Variáveis para controle da gravação
+        let mediaStream;
+        let mediaRecorder;
+        let recording = false; // Variável para controlar o estado da gravação
+
+        // Função para iniciar a gravação da câmera
+        startRecordingButton.addEventListener("click", async () => {
+            if (!recording) {
+                try {
+                    mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+
+                    videoElement.forEach(video => {
+                        video.srcObject = mediaStream;
+                        video.style.display = "block";
+                    });
+
+                    mediaRecorder = new MediaRecorder(mediaStream);
+
+                    mediaRecorder.ondataavailable = function (event) {
+                        // Manipular os dados da gravação (por exemplo, salvar em um arquivo)
+                    };
+
+                    mediaRecorder.start();
+                    startRecordingButton.disabled = true;
+                    finalizarConsultaButton.disabled = false;
+                    recording = true; // Atualiza o estado da gravação
+                } catch (error) {
+                    alert("Erro ao acessar a webcam: " + error.message);
+                }
+            }
+        });
+
+        // Evento para mostrar o formulário da consulta
+        finalizarConsultaButton.addEventListener("click", () => {
+            consultaForm.style.display = "block";
+            consultaDados.style.display = "none";
+
+            // Parar a gravação de vídeo
+            if (recording) {
+                mediaRecorder.stop();
+                mediaStream.getTracks().forEach(track => track.stop());
 
                 videoElement.forEach(video => {
-                    video.srcObject = mediaStream;
-                    video.style.display = "block";
+                    video.style.display = "none";
                 });
 
-                mediaRecorder = new MediaRecorder(mediaStream);
-
-                mediaRecorder.ondataavailable = function (event) {
-                    // Manipular os dados da gravação (por exemplo, salvar em um arquivo)
-                };
-
-                mediaRecorder.start();
-                startRecordingButton.disabled = true;
-
-                recording = true; // Atualiza o estado da gravação
-            } catch (error) {
-                alert("Erro ao acessar a webcam: " + error.message);
+                startRecordingButton.disabled = false;
+                recording = false; // Atualiza o estado da gravação
             }
-        }
-    });
+        });
 
-    // Função para parar a gravação
-    // Para parar a gravação, você pode adicionar um evento em um elemento específico, se necessário.
-    // Se você desejar que a gravação seja interrompida quando o formulário é enviado, isso pode ser feito lá.
+        // Adicionar o código para exibir os dados do formulário na tela após o envio
+        consultaForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
 
-    // Evento para mostrar o formulário da consulta
-    finalizarConsultaButton.addEventListener("click", () => {
-        consultaForm.style.display = "none";
-        consultaDados.style.display = "block";
+            // Recupere os valores dos campos do formulário
+            const cpfValue = document.getElementById("cpf").value;
+            const hospitalValue = document.getElementById("hospital").value;
+            const situacaoValue = document.getElementById("situacao").value;
+            const dataValue = document.getElementById("data").value;
+            const horarioValue = document.getElementById("horario").value;
 
-        // Parar a gravação de vídeo (se necessário) pode ser feito aqui.
-    });
+            // Exiba os valores na tela
+            cpfDados.textContent = `CPF do Paciente: ${cpfValue}`;
+            hospitalDados.textContent = `Hospital: ${hospitalValue}`;
+            situacaoDados.textContent = `Situação do Paciente: ${situacaoValue}`;
+            dataDados.textContent = `Data da Consulta: ${dataValue}`;
+            horarioDados.textContent = `Horário da Consulta: ${horarioValue}`;
 
-    // Adicionar o código para exibir os dados do formulário na tela após o envio
-    consultaForm.addEventListener("submit", function (event) {
-        event.preventDefault(); // Impede o envio padrão do formulário
-
-        // Recupere os valores dos campos do formulário
-        const cpfValue = document.getElementById("cpf").value;
-        const hospitalValue = document.getElementById("hospital").value;
-        const situacaoValue = document.getElementById("situacao").value;
-        const dataValue = document.getElementById("data").value;
-        const leftSide = document.querySelector('.left-side')
-        const RightSide = document.querySelector('.right-side')
-        leftSide.classList.add("hidden")
-        RightSide.classList.add('large')
-
-        // Exiba os valores na tela
-        cpfDados.textContent = `CPF do Paciente: ${cpfValue}`;
-        hospitalDados.textContent = `Hospital: ${hospitalValue}`;
-        situacaoDados.textContent = `Situação do Paciente: ${situacaoValue}`;
-        dataDados.textContent = `Data da Consulta: ${dataValue}`;
-
-        consultaForm.style.display = "none";
-        consultaDados.style.display = "block";
-    });
+            consultaForm.style.display = "none";
+            consultaDados.style.display = "block";
+        });
+    } else {
+        console.error("Um ou mais elementos não foram encontrados no DOM.");
+    }
 });

@@ -32,7 +32,10 @@
 
                 <label for="data">Data da Consulta:</label>
                 <input type="date" id="data" name="data" required>
-
+                
+                <label for="horario">Horário da Consulta:</label>
+                <input type="time" id="horario" name="horario" required>
+                
                 <button id="finalizar-consulta">Finalizar Consulta</button>
             </form>
             <button id="start-recording">Iniciar Gravação</button>
@@ -44,6 +47,7 @@
         <p><strong>Hospital:</strong> <span id="hospital-dados"></span></p>
         <p><strong>Situação do Paciente:</strong> <span id="situacao-dados"></span></p>
         <p><strong>Data da Consulta:</strong> <span id="data-dados"></span></p>
+        <p><strong>Horário da Consulta:</strong> <span id="horario-dados"></span></p>
     </div>
 
     <script src="../scripts/medico.js"></script>
