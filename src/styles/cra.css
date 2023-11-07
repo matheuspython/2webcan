@@ -1,4 +1,4 @@
-/* body {
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -10,6 +10,7 @@ main {
 }
 
 .left-side {
+    display: block;
     width: 300px;
     padding: 2%;
     background: #40de63;
@@ -155,4 +156,4 @@ button:disabled {
         width: 100%;
         margin-left:0 ;
     }
-} */
+}

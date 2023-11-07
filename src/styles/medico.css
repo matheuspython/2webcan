@@ -75,7 +75,10 @@ button:disabled {
 .hidden {
     display: none;
 }
-
+.large {
+    width: 100%;
+    margin-left:0 ;
+}
 /* Estilos para o formulário de consulta */
 #consulta-form {
     display: flex;
@@ -114,7 +117,7 @@ button:disabled {
 #consulta-dados {
     display: none;
     align-items: center;
-    flex-direction: column;
+   text-align: center;
 }
 
 #consulta-dados h3 {
@@ -137,4 +140,14 @@ button:disabled {
     max-width: 300px; /* Impede que o vídeo ultrapasse o tamanho da tela */
     background-color: black;
     cursor: pointer;
+}
+
+@media screen and (max-width: 1100px) {
+    .left-side{
+        display: none;
+    }
+    .right-side{
+        width: 100%;
+        margin-left:0 ;
+    }
 }
