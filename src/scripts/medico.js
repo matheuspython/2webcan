@@ -1,10 +1,11 @@
-// Selecionar elementos HTML para a área do médico
+// Selecionar elementos HTML
 const videoElement = document.querySelectorAll(".video-element");
 const startRecordingButton = document.getElementById("start-recording");
 const stopRecordingButton = document.getElementById("stop-recording");
 const placeholder = document.getElementById("placeholder");
 const consultaForm = document.getElementById("consulta-form");
 const finalizarConsultaButton = document.getElementById("finalizar-consulta");
+const consultaDados = document.getElementById("consulta-dados");
 
 // Variáveis para controle da gravação
 let mediaStream;

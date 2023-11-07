@@ -1,6 +1,84 @@
-/* CSS para o formulário da consulta */
-#consulta-form {
+/* Estilos para a área do médico */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+main {
+    display: flex;
+}
+
+.left-side {
+    width: 300px;
+    padding: 2%;
+    background: #40de63;
+    color: #fff;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    position: fixed;
+}
+
+.left-side h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.left-side p {
+    font-size: 16px;
+}
+
+.right-side {
+    margin-left: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right-side h2 {
+    color: #40de63;
+    margin: 45px;
+}
+
+/* CSS para os botões */
+button {
+    background: #40de63;
+    cursor: pointer;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    width: 80%;
+    margin: 10px 0;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background: #36c356; /* Cor ligeiramente mais escura ao passar o mouse */
+}
+
+/* Estilização dos botões quando desabilitados */
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.hidden {
     display: none;
+}
+
+/* Estilos para o formulário de consulta */
+#consulta-form {
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -42,4 +120,21 @@
 #consulta-dados h3 {
     color: #40de63;
     margin: 20px 0;
+}
+
+/* CSS para os vídeos */
+.video-area {
+    display: flex;
+    flex-wrap: wrap; /* Faz com que os elementos quebrem para a próxima linha quando não couberem na largura */
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.video-element {
+    border-radius: 12px;
+    width: 80%;
+    max-width: 300px; /* Impede que o vídeo ultrapasse o tamanho da tela */
+    background-color: black;
+    cursor: pointer;
 }
