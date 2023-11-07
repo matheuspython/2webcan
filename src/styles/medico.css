@@ -1,0 +1,45 @@
+/* CSS para o formulário da consulta */
+#consulta-form {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+#consulta-form label {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+#consulta-form input {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#finalizar-consulta {
+    background: #40de63;
+    cursor: pointer;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    width: 80%;
+    margin: 10px 0;
+    transition: background-color 0.3s;
+}
+
+/* CSS para mostrar os dados da consulta */
+#consulta-dados {
+    display: none;
+    align-items: center;
+    flex-direction: column;
+}
+
+#consulta-dados h3 {
+    color: #40de63;
+    margin: 20px 0;
+}
