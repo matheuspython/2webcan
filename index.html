@@ -6,21 +6,22 @@
     <title>Document</title>
     <link rel="stylesheet" href="./src/styles/globals.css">
     <link rel="stylesheet" href="./src/styles/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
     <main>
         <div class="left-side">
-          <h1>Bem - vindo de volta</h1>
+          <h1>Bem - vindo ao DockLink</h1>
           <p>Acesse sua conta agora</p>
         </div>
         <div class="right-side">
           <h2>LOGIN</h2>
           <form id="login-form">
-            <input type="text" placeholder="nome" id="name">
-            <input type="text" placeholder="e-mail" id="email">
+            <input type="text" placeholder="login" id="login">
             <input type="password" placeholder="senha" id="password">
 
-            <button type="button" onclick="checkLogin()">Cadastrar</button>
+            <button type="button" onClick="log()">Entrar</button>
             <a href="./src/pages/cadastr.html" class="criar-conta">criar conta paciente</a>
             <a href="./src/pages/cadastr.html" style="bottom: -25px;" class="criar-conta">criar conta hospital</a>
 
@@ -46,33 +47,61 @@
                         <p>Comprometemo-nos a fornecer a mais alta qualidade de atendimento e serviços para atender às expectativas dos nossos clientes.</p>
                     </div>
                 </div>
-                
-                
             </div>
           </div>
-          <!-- <form action="https://formsubmit.co/ruivorobado@gmail.com" method="POST">
-            <input type="text" name="name" required class="form-control" >
-            <input type="email" name="email" required class="form-control" >
-            <button type="submit">Enviar</button>
-       </form> -->
         </div>
-      </main>
+      </main> 
       <script>
-          
-        function checkLogin() {
-            var name = document.getElementById("name").value;
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
+        const btn = document.querySelector("button")
+        // btn.addEventListener("click", login)
+        // function login() {
+        //     // Simulação de uma chamada ao backend para verificar o login
+        //     const loginInput = document.getElementById('login').value;
+        //     const passwordInput = document.getElementById('password').value;
 
-            if (name === "joao" && email === "joao@gmail.com" && password === "123") {
-                window.location.href = "./src/pages/cra.html";
-            } else if (name === "hospital" && email === "hospital@gmail.com" && password === "321") {
-                window.location.href = "./src/pages/medico.html";
-            } else {
-                alert("Dados inválidos ou inexistentes");
-            }
+        //     // Supondo que você tenha uma API de login no backend
+        //     // Substitua isso com a lógica real de autenticação no seu backend
+        //     fetch('http://localhost:4000/thisAcountExist', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             login: loginInput,
+        //             password: passwordInput,
+        //         }),
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data.success) {
+        //             // Login correto, redirecione para o Google
+        //             window.location.href = 'https://www.google.com';
+        //         } else {
+        //             // Login incorreto, exiba uma mensagem ou tome outra ação
+        //             alert('Login incorreto. Por favor, tente novamente.');
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Erro ao autenticar:', error);
+        //     });
+        // }
+        
+        async function log(){
+            const login = document.querySelector('#login').value
+            const password = document.querySelector('#password').value
+            const logi = await axios.post('http://localhost:4000/thisAcountExist', {
+            login, password
+        })
+        const res = logi.data
+        console.log(res)
+        console.log(login)
+        if(!res.loginExiste){
+            alert('erro de dados')
+            return
         }
- 
-      </script>
+    window.location.href = './src/pages/cra.html';
+} 
+            
+    </script>
 </body>
 </html>
