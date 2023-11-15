@@ -34,6 +34,18 @@ main {
     font-size: 16px;
 }
 
+.left-side .change-data{
+    color: white;
+    text-decoration: none;
+    transition: .4s;
+    font-size: 14px;
+    cursor: pointer;
+}
+.left-side .change-data:hover{
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .right-side {
     margin-left: 300px;
     width: 100%;

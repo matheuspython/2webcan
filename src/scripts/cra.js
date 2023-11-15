@@ -3,6 +3,16 @@ const videoElement = document.querySelectorAll(".video-element");
 const startRecordingButton = document.getElementById("start-recording");
 const stopRecordingButton = document.getElementById("stop-recording");
 const placeholder = document.getElementById("placeholder");
+const botao = document.querySelector(".change-data")
+
+
+const url = new URL(window.location.href); // Obtém a URL da página atual
+const params = new URLSearchParams(url.search); // Obtém os parâmetros da URL
+
+// Obtém o valor do parâmetro "nome"
+const login = params.get('login');
+
+
 
 // Variáveis para controle da gravação
 let mediaStream;
@@ -56,3 +66,7 @@ stopRecordingButton.addEventListener("click", () => {
         recording = false; // Atualiza o estado da gravação
     }
 });
+botao.addEventListener("click",()=>{
+    window.location.href = `./mudarDados.html?login=${login}`;
+
+})

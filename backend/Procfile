@@ -1,0 +1,1 @@
+web: tsc && yarn prisma migrate dev && cd build && node server.js
