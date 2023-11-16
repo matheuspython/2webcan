@@ -34,14 +34,9 @@ class CreateUserService {
         rg
       },
     });
-    const infoWs = {
-      id: user.id,
-      login: user.login,
-      password: user.password,
-    };
-    io.emit("new_user", infoWs);
     return user;
   }
 }
+console.log('chegou a criar no service')
 
 export { CreateUserService };

@@ -16,19 +16,47 @@
         <div class="right-side">
             <h2>CADASTRO DE HOSPITAL</h2>
             <form id="cadastro-form">
-                <input type="text" placeholder="Nome do Hospital" name="nome" id="nome">
+              <input type="text" placeholder="Nome do Hospital" name="nome" id="nome">
+              <input type="text" placeholder="login" name="login" id="login">
+              <input type="password" placeholder="Senha" name="senha" id="senha">
+              <input type="email" placeholder="E-mail" name="email" id="email">
                 <input type="text" placeholder="Endereço" name="endereco" id="endereco">
+
                 <input type="text" placeholder="CNPJ" name="cnpj" id="cnpj">
                 <input type="text" placeholder="Telefone" name="telefone" id="telefone">
-                <input type="email" placeholder="E-mail" name="email" id="email">
-                <input type="password" placeholder="Senha" name="senha" id="senha">
+                <input type="text" placeholder="id do hospital" name="idHospital" id="idHospital">
+
                 <button type="submit">Cadastrar</button>
                 <a href="../../index.html" class="criar-conta">Já tem uma conta? Faça login</a>
             </form>
         </div>
     </main>
 
-    
-    <!-- <script src="../scripts/hospital.js"></script> -->
+    <script>
+          document.getElementById('cadastro-form').addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    try {
+      const response = await fetch('http://localhost:4000/createHospital', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(Object.fromEntries(formData)),
+      });
+
+      const result = await response.json();
+
+      console.log(result);
+
+    } catch (error) {
+      console.error('Erro ao criar usuário:', error);
+    }
+    window.location.href = `./src/pages/cra.html?login=${res.userData.login}`;
+
+  });
+    </script>
 </body>
 </html>

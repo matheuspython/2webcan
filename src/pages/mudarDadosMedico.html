@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../styles/globals.css">
+  <link rel="stylesheet" href="../styles/changeData.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>  
+  <main>
+    <div class="container">  
+      <h1 class="message"></h1>
+      <form id="login-form">
+        <input type="text" placeholder="endereco" id="endereco" name="endereco">
+        <input type="text" placeholder="nome" id="nome" name="nome">
+        <input type="text" placeholder="email" id="email" name="email">
+        <input type="text" placeholder="telefone" id="telefone" name="telefone">
+        <input type="password" placeholder="senha" id="senha" name="senha">
+        <button type="button">Entrar</button>
+    </form>
+    </div>
+  </main>
+
+<script>
+  const messageField = document.querySelector('.message')
+  const url = new URL(window.location.href); // Obtém a URL da página atual
+  const params = new URLSearchParams(url.search); // Obtém os parâmetros da URL
+
+  // Obtém o valor do parâmetro "nome"
+  const login = params.get('login');
+  messageField.innerHTML = `mudar dados de ${login}`
+
+  const btn = document.querySelector("button")
+  btn.addEventListener("click", log)
+        async function log(){
+            const endereco = document.querySelector('#endereco').value
+            const nome= document.querySelector('#nome').value
+            const email = document.querySelector('#email').value
+            const telefone = document.querySelector('#telefone').value
+            const senha = document.querySelector('#senha').value
+
+
+            const logi = await axios.post('http://localhost:4000/updateHospitalProfile', {
+            login, senha,endereco, email, nome,telefone
+        })
+      
+    window.location.href = `./src/pages/cra.html?login=${res.hospitalData.login}`;
+    return
+} 
+</script>
+</body>
+</html>

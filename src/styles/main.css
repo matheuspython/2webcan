@@ -45,6 +45,11 @@ main .right-side form {
     align-items: center;
 
 }
+.chck-space{
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+}
 main .right-side form .criar-conta {
     width: 100%;
     text-decoration: none;

@@ -22,12 +22,12 @@ class CreateUserController {
       login,
       name,
       password,
-  email,
-  endereco,
-  idade,
-  rg
+      email,
+      endereco,
+      idade,
+      rg
     });
-
+    console.log('chegou a criar no controler')
     return res.json(result);
   }
 }
