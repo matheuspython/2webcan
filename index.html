@@ -17,7 +17,13 @@
       <div class="right-side">
         <h2>LOGIN</h2>
         <div class="chck-space">
-          <input type="radio" id="paciente" name="opcao" checked value="paciente" />
+          <input
+            type="radio"
+            id="paciente"
+            name="opcao"
+            checked
+            value="paciente"
+          />
           <label for="paciente">paciente</label><br />
 
           <input type="radio" id="hospital" name="opcao" value="hospital" />
@@ -88,63 +94,68 @@
       </div>
     </main>
     <script>
-    const btn = document.querySelector("button");
+      const btn = document.querySelector("button");
 
-function redirectToPage(url, loginKey, login) {
-  window.location.href = `./src/pages/${url}?${loginKey}=${login}`;
-}
+      function redirectToPage(url, loginKey, login) {
+        window.location.href = `./src/pages/${url}?${loginKey}=${login}`;
+      }
 
-function showAlert(message) {
-  alert(message);
-}
+      function showAlert(message) {
+        alert(message);
+      }
 
-function handleRadioButtonChange() {
-  const login = document.querySelector("#login").value;
-  const password = document.querySelector("#password").value;
-  
-  if (this.value === "hospital") {
-    axios.post("http://localhost:4000/loginHospital", { login, senha: password })
-      .then((response) => {
-        const res = response.data;
-        if (!res.loginExiste) {
-          // showAlert("Erro nos dados de login");
-          return;
+      function handleRadioButtonChange() {
+        const login = document.querySelector("#login").value;
+        const password = document.querySelector("#password").value;
+
+        if (this.value === "hospital") {
+          axios
+            .post("http://localhost:4000/loginHospital", {
+              login,
+              senha: password,
+            })
+            .then((response) => {
+              const res = response.data;
+              if (!res.loginExiste) {
+                // showAlert("Erro nos dados de login");
+                return;
+              }
+              redirectToPage("medico.html", "login", res.hospitalData.login);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        } else if (this.value === "paciente") {
+          axios
+            .post("http://localhost:4000/thisAcountExist", { login, password })
+            .then((response) => {
+              const res = response.data;
+              if (!res.loginExiste) {
+                // showAlert("Erro nos dados de login");
+                return;
+              }
+              redirectToPage("cra.html", "login", res.userData.login);
+            })
+            .catch((error) => {
+              console.error(error);
+            });
         }
-        redirectToPage("medico.html", "login", res.hospitalData.login);
-      })
-      .catch((error) => {
-        console.error(error);
+      }
+
+      document.querySelectorAll('input[name="opcao"]').forEach((radio) => {
+        radio.addEventListener("change", handleRadioButtonChange);
       });
-  } else if (this.value === "paciente") {
-    axios.post("http://localhost:4000/thisAcountExist", { login, password })
-      .then((response) => {
-        const res = response.data;
-        if (!res.loginExiste) {
-          // showAlert("Erro nos dados de login");
-          return;
+
+      btn.addEventListener("click", function () {
+        const radioSelecionado = document.querySelector(
+          'input[name="opcao"]:checked'
+        );
+        if (radioSelecionado) {
+          radioSelecionado.dispatchEvent(new Event("change"));
+        } else {
+          showAlert("Selecione uma opção antes de continuar.");
         }
-        redirectToPage("cra.html", "login", res.userData.login);
-      })
-      .catch((error) => {
-        console.error(error);
       });
-  }
-}
-
-document.querySelectorAll('input[name="opcao"]').forEach((radio) => {
-  radio.addEventListener("change", handleRadioButtonChange);
-});
-
-btn.addEventListener("click", function () {
-  const radioSelecionado = document.querySelector('input[name="opcao"]:checked');
-  if (radioSelecionado) {
-    radioSelecionado.dispatchEvent(new Event('change'));
-  } else {
-    showAlert("Selecione uma opção antes de continuar.");
-  }
-});
-
-
     </script>
   </body>
 </html>

@@ -159,6 +159,36 @@ button:disabled {
     border: none;
     margin-top: 20px;
 }
+#consulta-form input,
+#consulta-form textarea {
+    width: 80%;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Garante que o padding não afete a largura total */
+}
+
+/* Estilização específica para textarea */
+#consulta-form textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+/* Estilização para o botão de finalizar consulta no formulário */
+#finalizar-consulta {
+    background: #40de63;
+    cursor: pointer;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    width: 80%;
+    margin: 10px 0;
+    transition: background-color 0.3s;
+}
 
 @media screen and (max-width: 1100px) {
     .left-side{

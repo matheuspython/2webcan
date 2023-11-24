@@ -9,6 +9,79 @@
 </head>
 <body>
     <main>
+          
+            <div class="form">    
+                <div class="exit">x</div>
+                <form id="formularioConsulta" action="">
+                    <label for="nome">Nome completo:</label>
+                    <input type="text" id="nome" name="nome">
+
+                    <label for="login">Login:</label>
+                    <input type="text" id="login" name="login">
+    
+                    <label for="dataNascimento">Data de nascimento:</label>
+                    <input type="text" id="dataNascimento" name="dataNascimento">
+    
+                    <label for="genero">Gênero:</label>
+                    <input type="text" id="genero" name="genero">
+    
+                    <label for="endereco">Endereço:</label>
+                    <input type="text" id="endereco" name="endereco">
+    
+                    <label for="telefone">Número de telefone:</label>
+                    <input type="text" id="telefone" name="telefone">
+    
+                    <label for="email">E-mail:</label>
+                    <input type="text" id="email" name="email">
+    
+                    <label for="temperatura">Temperatura corporal atual (em graus Celsius ou Fahrenheit):</label>
+                    <input type="text" id="temperatura" name="temperatura">
+    
+                    <label for="pressao">Pressão arterial (se disponível):</label>
+                    <input type="text" id="pressao" name="pressao">
+    
+                    <label for="peso">Peso (em kg ou lbs):</label>
+                    <input type="text" id="peso" name="peso">
+    
+                    <label for="altura">Altura (em cm ou ft):</label>
+                    <input type="text" id="altura" name="altura">
+    
+                    <label for="condicaoMedica">Você possui alguma condição médica crônica? (Por exemplo: diabetes, pressão alta, asma, etc.)</label>
+                    <input type="text" id="condicaoMedica" name="condicaoMedica">
+    
+                    <label for="alergia">Já foi diagnosticado com alguma alergia? Se sim, especificar:</label>
+                    <input type="text" id="alergia" name="alergia">
+    
+                    <label for="medicamentos">Está tomando medicamentos regularmente? Quais?</label>
+                    <input type="text" id="medicamentos" name="medicamentos">
+    
+                    <label for="febre">Teve febre nas últimas 24 horas?</label>
+                    <input type="text" id="febre" name="febre">
+    
+                    <label for="tosse">Apresentou tosse, falta de ar ou dificuldade respiratória recentemente?</label>
+                    <input type="text" id="tosse" name="tosse">
+    
+                    <label for="garganta">Sentiu dor de garganta ou congestão nasal?</label>
+                    <input type="text" id="garganta" name="garganta">
+    
+                    <label for="perdaOlfato">Experimentou perda recente de paladar ou olfato?</label>
+                    <input type="text" id="perdaOlfato" name="perdaOlfato">
+    
+                    <label for="contatoCovid">Esteve em contato com alguém diagnosticado com COVID-19 nos últimos 14 dias?</label>
+                    <input type="text" id="contatoCovid" name="contatoCovid">
+    
+                    <label for="viagem">Viajou para fora do país nos últimos 30 dias? Se sim, onde?</label>
+                    <input type="text" id="viagem" name="viagem">
+    
+                    <label for="areasTransmissao">Esteve em áreas com altas taxas de transmissão de doenças infecciosas recentemente?</label>
+                    <input type="text" id="areasTransmissao" name="areasTransmissao">
+    
+                    <label for="outrasInformacoes">Outras Informações:</label>
+                    <textarea id="outrasInformacoes" name="outrasInformacoes" cols="30" rows="10"></textarea>
+    
+                    <button onclick="enviarFormulario(event)">enviar</button>
+                </form>
+    </div>
         <div class="left-side">
             <h1>Bem-vindo de volta</h1>
             <p>Acesse sua conta agora</p>
@@ -22,9 +95,74 @@
 
             </div>
             <button id="start-recording">Iniciar Gravação</button>
-            <button id="stop-recording" class="hidden">Parar Gravação</button>
+            <button id="stop-recording" class="hidden">Parar Gravação</button>       
+            <button id="consultar-diagnosticos">Consultar Diagnósticos</button>
+            <div id="diagnosticos-container"></div>
         </div>
     </main>
     <script src="../scripts/cra.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+          document.getElementById('consultar-diagnosticos').addEventListener('click', async () => {
+            const url = new URL(window.location.href); // Obtém a URL da página atual
+            const params = new URLSearchParams(url.search); // Obtém os parâmetros da URL
+
+            // Obtém o valor do parâmetro "nome"
+            const login = params.get('login');
+
+
+            try {
+                const response = await axios.get(`http://localhost:4000/diagnosticosPorLogin/${login}`);
+                const data = response.data;
+
+                if (data.success) {
+                    const diagnosticos = data.diagnosticos;
+                    exibirDiagnosticos(diagnosticos);
+                } else {
+                    alert('Erro ao consultar diagnósticos: ' + data.error);
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Erro ao conectar à API.');
+            }
+        });
+
+        function exibirDiagnosticos(diagnosticos) {
+            const diagnosticosContainer = document.getElementById('diagnosticos-container');
+            diagnosticosContainer.innerHTML = ''; // Limpa o conteúdo anterior
+
+            if (diagnosticos.length === 0) {
+                diagnosticosContainer.innerText = 'Nenhum diagnóstico encontrado.';
+            } else {
+                const listaDiagnosticos = document.createElement('ul');
+
+                diagnosticos.forEach(diagnostico => {
+                    const itemLista = document.createElement('li');
+                    itemLista.innerText = `Diagnostico: ${diagnostico.descricao}`;
+                    listaDiagnosticos.appendChild(itemLista);
+                });
+
+                diagnosticosContainer.appendChild(listaDiagnosticos);
+            }
+            diagnosticosContainer.innerHTML += `
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14421.176949295781!2d-49.1893976!3d-25.3614534!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce896f5a6d365%3A0x8954c9bb8097d648!2sEmergency%20Care%20Alto%20Maracan%C3%A3!5e0!3m2!1sen!2sbr!4v1699385035521!5m2!1sen!2sbr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        `
+        }
+        function enviarFormulario(event) {
+            const formulario = document.getElementById('formularioConsulta');
+            const formData = new FormData(formulario);
+            const formDataObject = Object.fromEntries(formData);
+            event.preventDefault()
+            axios.post('http://localhost:4000/enviarFormulario', formDataObject)
+                .then(response => {
+                    console.log('Resposta da API:', response.data);
+                   fecha()
+                })
+                .catch(error => {
+                    console.error('Erro ao enviar formulário:', error);
+                    // Adicione aqui lógica para lidar com erros
+                });
+        }
+        </script>
 </body>
 </html>

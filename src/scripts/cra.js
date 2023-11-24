@@ -3,6 +3,7 @@ const videoElement = document.querySelectorAll(".video-element");
 const startRecordingButton = document.getElementById("start-recording");
 const stopRecordingButton = document.getElementById("stop-recording");
 const placeholder = document.getElementById("placeholder");
+const formRespostasExit = document.querySelector('.form .exit')
 const botao = document.querySelector(".change-data")
 
 
@@ -70,3 +71,8 @@ botao.addEventListener("click",()=>{
     window.location.href = `./mudarDados.html?login=${login}`;
 
 })
+
+function fecha(){
+    document.querySelector('.form').style.display = 'none'
+}
+document.querySelector('main .exit').addEventListener('click',fecha)

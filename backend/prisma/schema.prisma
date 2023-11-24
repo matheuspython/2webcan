@@ -7,6 +7,38 @@ datasource db {
   url      = "file:./dev.db"
 }
 
+model paciente {
+  id                String @id @default(uuid())
+  nome              String
+  dataNascimento    String
+  genero            String
+  endereco          String
+  telefone          String
+  email             String
+  temperatura       String
+  pressao           String
+  peso              String
+  altura            String
+  condicaoMedica    String
+  alergia           String
+  medicamentos      String
+  febre             String
+  tosse             String
+  garganta          String
+  perdaOlfato       String
+  contatoCovid      String
+  viagem            String
+  areasTransmissao  String
+  outrasInformacoes String
+  login             String @unique
+}
+
+model Diagnostico {
+  id        Int    @id @default(autoincrement())
+  login     String @unique
+  descricao String
+}
+
 model user {
   id       String @id @default(uuid())
   login    String @unique

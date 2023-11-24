@@ -1,63 +1,103 @@
- <!DOCTYPE html>
- <html lang="pt-BR">
- <head>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/globals.css">
     <link rel="stylesheet" href="../styles/medico.css">
-
     <title>Document</title>
- </head>
- <body>
+</head>
+<body>
     <main>
         <div class="left-side">
             <h1>Bem-vindo de volta</h1>
             <p>Acesse sua conta agora</p>
             <a class="change-data">Cliquer aqui pra mudar seus dados</a>
-
         </div>
         <div class="right-side">
             <h2>Triagem Online</h2>
             <div class="video-area">
                 <video class="video-element" autoplay></video>
                 <video class="video-element" autoplay></video>
+                <button id="start-recording">Iniciar Gravação</button>
             </div>
             <form id="consulta-form" class="hidden">
-                <label for="cpf">CPF do Paciente:</label>
-                <input type="text" id="cpf" name="cpf" required>
-
-                <label for="hospital">Hospital:</label>
-                <input type="text" id="hospital" name="hospital" required>
-
-                <label for="situacao">Situação do Paciente:</label>
-                <input type="text" id="situacao" name="situacao" required>
-
-                <label for="data">Data da Consulta:</label>
-                <input type="date" id="data" name="data" required>
-                
-                <label for="horario">Horário da Consulta:</label>
-                <input type="time" id="horario" name="horario" required>
-                
-                <button id="finalizar-consulta">Finalizar Consulta</button>
+                <label for="login">Login do paciente</label>
+                <input type="text" name="login" id="login" placeholder="login do paciente">
+                <label for="diagnostico">Diagnóstico</label>
+                <textarea id="diagnostico" name="diagnostico" cols="30" rows="10"></textarea>
+                <button type="button" id="finalizar-consulta">Finalizar Consulta</button>
             </form>
-            <button id="start-recording">Iniciar Gravação</button>
+            <form id="searchForm">
+                <label for="login">Digite o login do paciente:</label>
+                <input type="text" id="search-login" name="login" required>
+                <button type="button" onclick="searchPaciente()">Buscar</button>
+            </form>
+            <!-- Div para exibir os dados do paciente -->
+            <div id="pacienteData"></div>
         </div>
     </main>
-    
-    <div id="consulta-dados" class="hidden">
-        <h3>Dados da Consulta</h3>
-        <p><strong>CPF do Paciente:</strong> <span id="cpf-dados"></span></p>
-        <p><strong>Hospital:</strong> <span id="hospital-dados"></span></p>
-        <p><strong>Situação do Paciente:</strong> <span id="situacao-dados"></span></p>
-        <p><strong>Data da Consulta:</strong> <span id="data-dados"></span></p>
-        <p><strong>Horário da Consulta:</strong> <span id="horario-dados"></span></p>
-        <div id="mapa-hospital" >
-            <h3>Localização do Hospital</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14421.176949295781!2d-49.1893976!3d-25.3614534!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce896f5a6d365%3A0x8954c9bb8097d648!2sEmergency%20Care%20Alto%20Maracan%C3%A3!5e0!3m2!1sen!2sbr!4v1699385035521!5m2!1sen!2sbr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </div>
-
+  
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../scripts/medico.js"></script>
     <script src="../scripts/medico-ir-update.js"></script>
- </body>
- </html>
+    <script>
+        async function finalizarConsulta() {
+            const login = document.getElementById('login').value;
+            const diagnostico = document.getElementById('diagnostico').value;
+
+            try {
+                const response = await axios.post('http://localhost:4000/addDiagnostico/' + login, {
+                    descricao: diagnostico,
+                });
+
+                if (response.data.success) {
+                    alert('Diagnóstico adicionado com sucesso!');
+                    // Limpar os campos após o sucesso, se necessário
+                    document.getElementById('login').value = '';
+                    document.getElementById('diagnostico').value = '';
+                } else {
+                    alert('Erro ao adicionar o diagnóstico: ' + response.data.error);
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Erro ao conectar à API.');
+            }
+        }
+
+        document.getElementById('finalizar-consulta').addEventListener('click', finalizarConsulta);
+
+        async function searchPaciente() {
+            const login = document.getElementById('search-login').value;
+
+            try {
+                const response = await fetch(`http://localhost:4000/pacientePorLogin/${login}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const pacienteData = data.paciente;
+                    displayPacienteData(pacienteData);
+                } else {
+                    document.getElementById('pacienteData').innerText = data.error;
+                }
+            } catch (error) {
+                console.error(error);
+                document.getElementById('pacienteData').innerText = 'Erro ao buscar o paciente.';
+            }
+        }
+
+        function displayPacienteData(pacienteData) {
+            const pacienteDataDiv = document.getElementById('pacienteData');
+            pacienteDataDiv.innerHTML = ''; // Limpa o conteúdo anterior
+
+            for (const key in pacienteData) {
+                if (Object.hasOwnProperty.call(pacienteData, key)) {
+                    const para = document.createElement('p');
+                    para.innerText = `${key}: ${pacienteData[key]}`;
+                    pacienteDataDiv.appendChild(para);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

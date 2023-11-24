@@ -8,6 +8,99 @@ body {
 main {
     display: flex;
 }
+.form {
+    position: fixed;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    background: rgba(124, 119, 119, 0.9);
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.form::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+}
+
+.form::-webkit-scrollbar-thumb {
+    background-color: #40de63; /* Cor do botão da barra de rolagem */
+    border-radius: 10px; /* Borda arredondada do botão */
+}
+
+.form::-webkit-scrollbar-track {
+    background-color: rgba(124, 119, 119, 0.5); /* Cor da trilha da barra de rolagem */
+}
+
+.form .exit {
+    color: white;
+    font-size: 20px;
+    position: fixed;
+    top: 7%;
+    right: 7%;
+    cursor: pointer;
+}
+
+.form form {
+    margin: 15px auto;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.form input,
+.form textarea {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.form textarea {
+    height: 80px;
+}
+
+.form button {
+    background: #40de63;
+    cursor: pointer;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.form button:hover {
+    background: #36c356; /* Cor ligeiramente mais escura ao passar o mouse */
+}
+
+/* Estilização dos botões quando desabilitados */
+.form button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+@media screen and (max-width: 1100px) {
+    .form {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+}
 
 .left-side {
     display: block;
